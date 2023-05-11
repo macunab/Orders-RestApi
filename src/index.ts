@@ -9,12 +9,15 @@ import cors from 'cors';
 import helmet from 'helmet';
 import passport from 'passport';
 import { CommonRoutesConfig } from './helpers/CommonRoutesConfig';
+import JwtStrategy from './helpers/JwtStrategy';
 
 DbConfig.connect(process.env.DB_CNN as string);
 const PORT: number = parseInt(process.env.PORT as string, 10);
 const app: Application = express();
 const routes: Array<CommonRoutesConfig> = [];
+JwtStrategy.verifyJwt();
 
+app.use(passport.initialize());
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
