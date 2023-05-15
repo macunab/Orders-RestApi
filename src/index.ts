@@ -10,6 +10,7 @@ import helmet from 'helmet';
 import passport from 'passport';
 import { CommonRoutesConfig } from './helpers/CommonRoutesConfig';
 import JwtStrategy from './helpers/JwtStrategy';
+import { AuthRoute } from './routes/auth.route';
 
 DbConfig.connect(process.env.DB_CNN as string);
 const PORT: number = parseInt(process.env.PORT as string, 10);
@@ -21,6 +22,7 @@ app.use(passport.initialize());
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+routes.push(new AuthRoute(app));
 
 app.use('*', (req: Request, res: Response) => {
     res.status(400).json({
