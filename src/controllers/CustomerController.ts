@@ -39,12 +39,37 @@ class CustomerController {
         }
     }
 
-    deleteCustomer(req: Request, res: Response) {
-
+    async deleteCustomer(req: Request, res: Response) {
+        const { id } = req.params;
+        try {
+            await customerModel.deleteOne({ _id: id });
+            res.status(200).json({
+                ok: true,
+                msg: `The note was successfully delete from the db`
+            });
+        } catch(error) {
+            res.status(400).json({
+                ok: false,
+                msg: `An error ocurred while trying delete a customer, error: ${error}`
+            });
+        }
     }
 
-    updateCustomer(req: Request, res: Response) {
-
+    async updateCustomer(req: Request, res: Response) {
+        const { id } = req.params;
+        const customer = req.body;
+        try {
+            await customerModel.findByIdAndUpdate(id, customer);
+            res.status(200).json({
+                ok: true,
+                msg: 'The customer was successfully updated'
+            });
+        } catch(error) {
+            res.status(400).json({
+                ok: false,
+                msg: 'An error ocurred while trying update a customer'
+            });
+        }
     }
 }
 
