@@ -13,7 +13,8 @@ class FactoryController {
             await factoryQuery.save();
             res.status(200).json({
                 ok: true,
-                msg: 'The factory was created successfully'
+                msg: 'The factory was created successfully',
+                data: factoryQuery
             });
         } catch(error) {
             res.status(400).json({
@@ -47,7 +48,8 @@ class FactoryController {
             await factoryModel.findByIdAndUpdate(id, factory);
             res.status(200).json({
                 ok: true,
-                msg: 'The factory has been successfully updated'
+                msg: 'The factory has been successfully updated',
+                data: factory
             });
         } catch(error) {
             res.status(200).json({

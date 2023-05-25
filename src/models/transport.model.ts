@@ -10,5 +10,5 @@ const transportSchema = new Schema({
     contact: { type: String }
 }, { timestamps: true });
 
-const transportModel = model<Transport, Document>('Transport', transportSchema);
+const transportModel = model<Transport & Document>('Transport', transportSchema);
 export default transportModel;
