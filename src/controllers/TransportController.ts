@@ -59,6 +59,19 @@ class TransportController {
 
     async findAllTransports(req: Request, res: Response) {
 
+        try {
+            const transports = await transportModel.find();
+            res.status(200).json({
+                ok: true,
+                msg: 'All documents found successfully',
+                data: transports
+            });
+        } catch(error) {
+            res.status(400).json({
+                ok: false,
+                msg: `An error ocurred while trying get all the transports from the db, ERROR: ${error}`
+            });
+        }
     }
 }
 
