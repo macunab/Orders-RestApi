@@ -16,6 +16,7 @@ export interface Order {
     iva: number;
     discountAmount: number; // billedAmount + remitAmount
     total: number; // (billedAmount + remitAmoun + iva) - discountAmount;
+    status: string;
 
 }
 
