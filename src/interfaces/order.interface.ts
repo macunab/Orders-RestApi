@@ -8,7 +8,7 @@ export interface Order {
     transport: Types.ObjectId;
     billedPercentage: number;
     discounts: Array<number>;
-    finalDiscounts: number;
+    finalDiscount: number;
     items: Array<itemsCart>;
     netTotal: number;
     billedAmount: number;
