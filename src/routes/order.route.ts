@@ -41,6 +41,44 @@ export class OrderRoute extends CommonRoutesConfig {
                 OrderController.createOrder
             );
 
+            this.app.route('/orders/:id')
+                .all((req: Request, res: Response, next: NextFunction) => {
+                    next();
+                })
+                .put(
+                    passport.authenticate('jwt', { session: false }),
+                    check('id', 'The ID param is required').not().isEmpty(),
+                    check('customer', 'The customer is required').not().isEmpty(),
+                    check('factory', 'The factory is required').not().isEmpty(),
+                    check('priceList', 'The price list is required').not().isEmpty(),
+                    check('transport', 'The transport is required').not().isEmpty(),
+                    check('billedPercentage', 'The billed percentage is required').not().isEmpty(),
+                    check('finalDiscount', 'The finalDiscount is required').not().isEmpty(),
+                    check('items', 'The cart items are required').not().isEmpty(),
+                    check('netTotal', 'The net total is required').not().isEmpty(),
+                    check('billedAmount', 'The billed amount is required').not().isEmpty(),
+                    check('remitAmount', 'The remit amount is required').not().isEmpty(),
+                    check('iva', 'The iva is required').not().isEmpty(),
+                    check('discountAmount', 'The discount amount is required').not().isEmpty(),
+                    check('total', 'The total is required').not().isEmpty(),
+                    ValidationFields.verifyErrors,
+                    OrderController.updateOrder    
+                    )
+                .delete(
+                    passport.authenticate('jwt', { session: false }),
+                    check('id', 'The ID param is required').not().isEmpty(),
+                    ValidationFields.verifyErrors,
+                    OrderController.deleteOrder
+                )
+
+                this.app.route('/orders/status/:status')
+                    .get(
+                        passport.authenticate('jwt', { session: false }),
+                        check('status', 'The STATUS param is required').not().isEmpty(),
+                        ValidationFields.verifyErrors,
+                        OrderController.findOrdersByStatus
+                    )
+
         return this.app;
     }
 
