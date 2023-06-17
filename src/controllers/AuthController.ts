@@ -53,6 +53,7 @@ class AuthController {
         }
         try {
             const { user } = jwt.verify(headerToken, (process.env.JWT_SECRET as string)) as Payload;
+            console.table(user);
             const token = await JwtHelper.jwtSign(user);
             res.status(200).json({
                 ok: true,
